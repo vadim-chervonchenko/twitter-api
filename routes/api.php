@@ -13,12 +13,16 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::get('tweets', 'TweetsController@index');
-Route::get('tweets/{id}', 'TweetsController@show');
-Route::put('tweets/{id}', 'TweetsController@update');
-Route::delete('tweets/{id}', 'TweetsController@delete');
-Route::post('tweets', 'TweetsController@store');
-
+/* twitter user methods */
 Route::post('/register', 'AuthController@register');
 Route::post('/login', 'AuthController@login');
 Route::post('/logout', 'AuthController@logout');
+
+/* filter verify jwt token */
+Route::group(['middleware' => ['jwt.verify']], function() {
+    Route::get('tweets', 'TweetsController@index');
+    Route::get('tweets/{id}', 'TweetsController@show');
+    Route::put('tweets/{id}', 'TweetsController@update');
+    Route::delete('tweets/{id}', 'TweetsController@delete');
+    Route::post('tweets', 'TweetsController@store');
+});
