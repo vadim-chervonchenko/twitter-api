@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\TweetRequest;
 use App\Models\Tweet;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class TweetsController extends Controller
 {
@@ -14,7 +15,7 @@ class TweetsController extends Controller
      */
     public function index()
     {
-        return Tweet::all();
+        return Tweet::with('user:id,name')->get();
     }
 
     /**
@@ -25,7 +26,9 @@ class TweetsController extends Controller
      */
     public function store(TweetRequest $request)
     {
-        return Tweet::create($request->all());
+        $user = JWTAuth::parseToken()->authenticate();
+        $tweet = Tweet::create( ['content' => $request['content'], 'user_id' => $user->id ] );
+        return Tweet::with('user:id,name')->where('id', $tweet->id)->first();
     }
 
     /**

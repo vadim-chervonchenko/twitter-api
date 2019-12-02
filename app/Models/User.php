@@ -51,5 +51,9 @@ class User extends Authenticatable implements JWTSubject
         if ( !empty($password) ) {
             $this->attributes['password'] = bcrypt($password);
         }
-    }    
+    }
+
+    public function tweets(){
+        return $this->hasMany(Tweet::class);
+    }
 }
