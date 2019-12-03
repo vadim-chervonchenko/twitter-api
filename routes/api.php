@@ -16,7 +16,7 @@ use Illuminate\Http\Request;
 /* twitter user methods */
 Route::post('/register', 'AuthController@register');
 Route::post('/login', 'AuthController@login');
-Route::post('/logout', 'AuthController@logout');
+Route::get('/logout', 'AuthController@logout');
 
 /* filter verify jwt token */
 Route::group(['middleware' => ['jwt.verify']], function() {
