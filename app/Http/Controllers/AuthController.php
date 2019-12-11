@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-use Tymon\JWTAuth\Facades\JWTAuth;
 
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -43,9 +42,9 @@ class AuthController extends Controller
             'expires_in'   => auth()->factory()->getTTL() * 60
         ]);
     }
-    public function getAuthenticatedUser()
+    public function getAuthenticatedUser(Request $request)
     {
-        $user = JWTAuth::parseToken()->authenticate();
+        $user = $request->user();
         if (!$user) {
             return response()->json(['error' => 'User not found'], 401);
         }

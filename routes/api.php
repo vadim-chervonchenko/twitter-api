@@ -17,7 +17,6 @@ use Illuminate\Http\Request;
 Route::post('/register', 'AuthController@register');
 Route::post('/login', 'AuthController@login');
 Route::post('/logout', 'AuthController@logout');
-Route::get('/user', 'AuthController@getAuthenticatedUser');
 
 /* filter verify jwt token */
 Route::group(['middleware' => ['jwt.verify']], function() {
@@ -26,4 +25,5 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::put('tweets/{id}', 'TweetsController@update');
     Route::delete('tweets/{id}', 'TweetsController@delete');
     Route::post('tweets', 'TweetsController@store');
+    Route::get('/user', 'AuthController@getAuthenticatedUser');
 });
