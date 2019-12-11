@@ -27,7 +27,8 @@ class TweetsController extends Controller
     {
         $user = $request->user();
         $tweet = new Tweet($request->post());
-        return $user->posts()->save($tweet);
+        $user->tweets()->save($tweet);
+        return Tweet::with('user:id,name')->where('id', $tweet->id)->first();
     }
 
     /**
