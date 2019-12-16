@@ -48,9 +48,8 @@ class TweetsController extends Controller
      */
     public function update(TweetRequest $request, $id)
     {
-        $tweet = Tweet::findOrFail($id)->loadMissing('author:id,name');
-        $tweet->update($request->all());
-        return $tweet;
+        Tweet::findOrFail($id)->update($request->all());
+        return Tweet::findOrFail($id)->loadMissing('author:id,name'); /* нужно будет добавить дополнительные методы для работы с постами. */
     }
 
     /**
