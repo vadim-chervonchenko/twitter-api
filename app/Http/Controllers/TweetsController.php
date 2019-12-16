@@ -14,7 +14,7 @@ class TweetsController extends Controller
      */
     public function index()
     {
-        return Tweet::with('user:id,name')->get();
+        return Tweet::all()->loadMissing('author:id,name');
     }
 
     /**
@@ -25,10 +25,7 @@ class TweetsController extends Controller
      */
     public function store(TweetRequest $request)
     {
-        $user = $request->user();
-        $tweet = new Tweet($request->post());
-        $user->tweets()->save($tweet);
-        return Tweet::with('user:id,name')->where('id', $tweet->id)->first();
+        return $request->user()->tweets()->create($request->post())->loadMissing('author:id,name');
     }
 
     /**
@@ -39,7 +36,7 @@ class TweetsController extends Controller
      */
     public function show($id)
     {
-        return Tweet::find($id);
+        return Tweet::findOrFail($id);
     }
 
     /**
@@ -51,9 +48,8 @@ class TweetsController extends Controller
      */
     public function update(TweetRequest $request, $id)
     {
-        $tweet = Tweet::findOrFail($id);
+        $tweet = Tweet::findOrFail($id)->loadMissing('author:id,name');
         $tweet->update($request->all());
-
         return $tweet;
     }
 
@@ -65,7 +61,7 @@ class TweetsController extends Controller
      */
     public function delete($id)
     {
-        $tweet = Tweet::findOrFail($id);
-        $tweet->delete();
+        Tweet::findOrFail($id)->delete();
+        return response()->json(['message' => 'Post deleted']);
     }
 }
