@@ -15,7 +15,8 @@ class TweetsController extends Controller
     public function index()
     {
         return Tweet::with('author:id,name')
-            ->paginate(3);
+            ->orderByDesc('id')
+            ->paginate(5);
     }
 
     /**
