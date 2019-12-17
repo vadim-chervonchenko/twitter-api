@@ -21,6 +21,7 @@ Route::post('/logout', 'AuthController@logout');
 /* filter verify jwt token */
 Route::group(['middleware' => ['jwt.verify']], function() {
     Route::get('tweets', 'TweetsController@index');
+    Route::get('tweets/page={id}', 'TweetsController@index');
     Route::get('tweets/{id}', 'TweetsController@show');
     Route::put('tweets/{id}', 'TweetsController@update');
     Route::delete('tweets/{id}', 'TweetsController@delete');

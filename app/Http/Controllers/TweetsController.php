@@ -14,7 +14,8 @@ class TweetsController extends Controller
      */
     public function index()
     {
-        return Tweet::all()->loadMissing('author:id,name');
+        return Tweet::with('author:id,name')
+            ->paginate(3);
     }
 
     /**
@@ -25,7 +26,11 @@ class TweetsController extends Controller
      */
     public function store(TweetRequest $request)
     {
-        return $request->user()->tweets()->create($request->post())->loadMissing('author:id,name');
+        return $request
+            ->user()
+            ->tweets()
+            ->create($request->post())
+            ->loadMissing('author:id,name');
     }
 
     /**
@@ -48,8 +53,11 @@ class TweetsController extends Controller
      */
     public function update(TweetRequest $request, $id)
     {
-        Tweet::findOrFail($id)->update($request->all());
-        return Tweet::findOrFail($id)->loadMissing('author:id,name'); /* нужно будет добавить дополнительные методы для работы с постами. */
+        Tweet::findOrFail($id)
+            ->update($request->all());
+
+        return Tweet::findOrFail($id)
+            ->loadMissing('author:id,name');
     }
 
     /**
