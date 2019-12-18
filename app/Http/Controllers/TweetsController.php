@@ -16,7 +16,7 @@ class TweetsController extends Controller
     {
         return Tweet::with('author:id,name')
             ->orderByDesc('id')
-            ->paginate(5);
+            ->paginate(7);
     }
 
     /**
