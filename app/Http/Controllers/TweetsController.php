@@ -12,11 +12,17 @@ class TweetsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return Tweet::with('author:id,name')
-            ->orderByDesc('id')
-            ->paginate(7);
+        if ( $request->input('hashtag') ) {
+            return $request->input('hashtag');
+        } else if ( $request->input('mention') ) {
+            return $request->input('mention');
+        } else {
+            return Tweet::with('author:id,name')
+                ->orderByDesc('id')
+                ->paginate(7);
+        }
     }
 
     /**

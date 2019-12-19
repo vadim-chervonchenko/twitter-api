@@ -14,8 +14,11 @@ class CreateMentionTable extends Migration
     public function up()
     {
         Schema::create('mention', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->timestamps();
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('tweet_id');
+
+            $table->foreign('user_id')->references('id')->on('user')->onDelete('cascade');
+            $table->foreign('tweet_id')->references('id')->on('tweets')->onDelete('cascade');
         });
     }
 

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Hashtag;
 use Illuminate\Database\Eloquent\Model;
 
 class Tweet extends Model
@@ -11,6 +12,14 @@ class Tweet extends Model
 
     public function author() {
         return $this->belongsTo(User::class, 'author_id');
+    }
+
+    public function mentions(){
+        return $this->belongsToMany(User::class, 'mentions', 'tweet_id', 'user_id');
+    }
+
+    public function hashtags(){
+        return $this->belongsToMany(Hashtag::class);
     }
 }
 

@@ -14,8 +14,11 @@ class CreateHashtagTweetTable extends Migration
     public function up()
     {
         Schema::create('hashtag_tweet', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->timestamps();
+            $table->unsignedBigInteger('hashtag_id');
+            $table->unsignedBigInteger('tweet_id');
+
+            $table->foreign('hashtag_id')->references('id')->on('hashtag')->onDelete('cascade');
+            $table->foreign('tweet_id')->references('id')->on('tweets')->onDelete('cascade');
         });
     }
 
