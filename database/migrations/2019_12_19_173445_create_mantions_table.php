@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateHashtagTable extends Migration
+class CreateMantionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateHashtagTable extends Migration
      */
     public function up()
     {
-        Schema::create('hashtag', function (Blueprint $table) {
+        Schema::create('mantions', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->timestamps();
         });
@@ -26,6 +26,6 @@ class CreateHashtagTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('hashtag');
+        Schema::dropIfExists('mantions');
     }
 }

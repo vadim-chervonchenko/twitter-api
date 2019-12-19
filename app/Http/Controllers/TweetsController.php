@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\TweetRequest;
 use App\Models\Tweet;
+use Illuminate\Http\Request;
 
 class TweetsController extends Controller
 {
@@ -15,9 +16,13 @@ class TweetsController extends Controller
     public function index(Request $request)
     {
         if ( $request->input('hashtag') ) {
+
             return $request->input('hashtag');
+
         } else if ( $request->input('mention') ) {
+
             return $request->input('mention');
+
         } else {
             return Tweet::with('author:id,name')
                 ->orderByDesc('id')

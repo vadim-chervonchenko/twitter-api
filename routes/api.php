@@ -18,6 +18,12 @@ Route::post('/register', 'AuthController@register');
 Route::post('/login', 'AuthController@login');
 Route::post('/logout', 'AuthController@logout');
 
+/* hashtags and mentions */
+Route::get('/mention', 'MentionController@index');
+Route::get('/mention/{name}', 'MentionController@search');
+Route::get('/hashtag', 'HashTagController@index');
+Route::get('/hashtag/{name}', 'HashTagController@search');
+
 /* filter verify jwt token */
 Route::group(['middleware' => ['jwt.verify']], function() {
     Route::get('tweets', 'TweetsController@index');
@@ -28,10 +34,4 @@ Route::group(['middleware' => ['jwt.verify']], function() {
 
     /* user */
     Route::get('/user', 'AuthController@getAuthenticatedUser');
-
-    /* hashtags and mentions */
-    Route::get('/mention', 'MentionController@index');
-    Route::get('/mention/{name}', 'MentionController@search');
-    Route::get('/hashtag', 'HashTagController@index');
-    Route::get('/hashtag/{name}', 'HashTagController@search');
 });
