@@ -21,10 +21,17 @@ Route::post('/logout', 'AuthController@logout');
 /* filter verify jwt token */
 Route::group(['middleware' => ['jwt.verify']], function() {
     Route::get('tweets', 'TweetsController@index');
-    Route::get('tweets/page={id}', 'TweetsController@index');
     Route::get('tweets/{id}', 'TweetsController@show');
     Route::put('tweets/{id}', 'TweetsController@update');
     Route::delete('tweets/{id}', 'TweetsController@delete');
     Route::post('tweets', 'TweetsController@store');
+
+    /* user */
     Route::get('/user', 'AuthController@getAuthenticatedUser');
+
+    /* hashtags and mentions */
+    Route::get('/mention', 'MentionController@index');
+    Route::get('/mention/{name}', 'MentionController@search');
+    Route::get('/hashtag', 'HashTagController@index');
+    Route::get('/hashtag/{name}', 'HashTagController@search');
 });
