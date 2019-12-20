@@ -14,7 +14,7 @@ class TweetsTableSeeder extends Seeder
     {
         Tweet::create([
             'content' => 'First admin post',
-            'user_id' => '1'
+            'author_id' => '1'
         ]);
     }
 }
