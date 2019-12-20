@@ -1,8 +1,6 @@
 <?php
 
 namespace App\Models;
-
-use App\Hashtag;
 use Illuminate\Database\Eloquent\Model;
 
 class Tweet extends Model

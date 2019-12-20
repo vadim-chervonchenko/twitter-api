@@ -1,16 +1,18 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use Illuminate\Http\Request;
+use App\Models\Hashtag;
 
 class HashTagController extends Controller
 {
     public function index() {
-        return 'hashtag index';
+        return Hashtag::orderBy('name', 'asc')
+                      ->pluck('name');
     }
 
-    public function search( Request $request) {
-        return 'hashtag search : '. $request->input('hashtag');
+    public function search($name) {
+        return Hashtag::where('name', 'like', $name.'%')
+                      ->orderBy('name', 'asc')
+                      ->get();
     }
 }

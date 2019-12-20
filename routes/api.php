@@ -24,10 +24,11 @@ Route::get('/mention/{name}', 'MentionController@search');
 Route::get('/hashtag', 'HashTagController@index');
 Route::get('/hashtag/{name}', 'HashTagController@search');
 
+Route::get('tweets', 'TweetsController@index');
+Route::get('tweets/{id}', 'TweetsController@show');
+
 /* filter verify jwt token */
 Route::group(['middleware' => ['jwt.verify']], function() {
-    Route::get('tweets', 'TweetsController@index');
-    Route::get('tweets/{id}', 'TweetsController@show');
     Route::put('tweets/{id}', 'TweetsController@update');
     Route::delete('tweets/{id}', 'TweetsController@delete');
     Route::post('tweets', 'TweetsController@store');

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use Illuminate\Http\Request;
 
 class MentionController extends Controller
 {
@@ -11,7 +10,9 @@ class MentionController extends Controller
         return User::pluck('name');
     }
 
-    public function search( Request $request) {
-        return 'mention search : '. $request->input('mention');
+    public function search($name) {
+        return User::where('name', 'like', $name.'%')
+                   ->orderBy('name', 'asc')
+                   ->pluck('name');
     }
 }
