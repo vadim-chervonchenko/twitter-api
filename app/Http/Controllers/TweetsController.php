@@ -80,6 +80,12 @@ class TweetsController extends Controller
         Tweet::findOrFail($id)
             ->update($request->all());
 
+        $tweet = Tweet::findOrFail($id)
+            ->loadMissing('author:id,name');
+
+        $tweet->mentions()->sync($this->findMention($request->input('content')));
+        $tweet->hashtags()->sync($this->findHashtag($request->input('content')));
+
         return Tweet::findOrFail($id)
             ->loadMissing('author:id,name');
     }
