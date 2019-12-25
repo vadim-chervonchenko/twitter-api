@@ -16,12 +16,7 @@ class UsersTableSeeder extends Seeder
         factory(User::class)->create([
             'name' => 'admin',
             'email' => 'admin@user.com',
-            'password' => 'admin'
+            'password' => 'qwerty'
         ])->tweets()->saveMany(factory(Tweet::class, 3)->make());
-
-        factory(User::class, 5)->create()
-            ->each(function ($user) {
-                $user->tweets()->saveMany(factory(Tweet::class, 3)->make());
-            });
     }
 }

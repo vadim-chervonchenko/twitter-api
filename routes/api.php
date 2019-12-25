@@ -18,20 +18,20 @@ Route::post('/register', 'AuthController@register');
 Route::post('/login', 'AuthController@login');
 Route::post('/logout', 'AuthController@logout');
 
-/* hashtags and mentions */
-Route::get('/mention', 'MentionController@index');
-Route::get('/mention/{name}', 'MentionController@search');
-Route::get('/hashtag', 'HashTagController@index');
-Route::get('/hashtag/{name}', 'HashTagController@search');
-
-Route::get('tweets', 'TweetsController@index');
-Route::get('tweets/{id}', 'TweetsController@show');
-
 /* filter verify jwt token */
 Route::group(['middleware' => ['jwt.verify']], function() {
     Route::put('tweets/{id}', 'TweetsController@update');
     Route::delete('tweets/{id}', 'TweetsController@delete');
     Route::post('tweets', 'TweetsController@store');
+
+    /* hashtags and mentions */
+    Route::get('/mention', 'MentionController@index');
+    Route::get('/mention/{name}', 'MentionController@search');
+    Route::get('/hashtag', 'HashTagController@index');
+    Route::get('/hashtag/{name}', 'HashTagController@search');
+
+    Route::get('tweets', 'TweetsController@index');
+    Route::get('tweets/{id}', 'TweetsController@show');
 
     /* user */
     Route::get('/user', 'AuthController@getAuthenticatedUser');
