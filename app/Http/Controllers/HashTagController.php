@@ -13,6 +13,6 @@ class HashTagController extends Controller
     public function search($name) {
         return Hashtag::where('name', 'like', $name.'%')
                       ->orderBy('name', 'asc')
-                      ->get();
+                      ->pluck('name');
     }
 }
